@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     SessionManager session;
 
     Button btnCreateReport;
-    Button btnSubmitReport;
-    Button btnGetLocation;
-    Button btnViewLocation;
 
     protected static final String TAG = "location-updates-sample";
     /**
@@ -488,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         updateUI();
-        LocationData l = new LocationData(-1,new java.util.Date(),(double)mCurrentLocation.getLatitude(),(double)mCurrentLocation.getLongitude(),user.get(SessionManager.KEY_ID),false,false);
+        LocationData l = new LocationData(new java.util.Date(),(double)mCurrentLocation.getLatitude(),(double)mCurrentLocation.getLongitude(),user.get(SessionManager.KEY_ID),false,false);
         db.addLocation(l);
         Toast.makeText(this,getResources().getString(R.string.location_updated_message)+new Date(), Toast.LENGTH_SHORT).show();
     }

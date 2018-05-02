@@ -22,7 +22,7 @@ import java.net.URL;
  */
 
 class HttpHandler  extends AsyncTask<String,Void,String> {
-    private static final String BASE_URL = "http://192.168.1.10:8000";
+    private static final String BASE_URL = "http://10.0.3.184:8000";
 
     @Override
     protected String doInBackground(String... params) {

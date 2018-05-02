@@ -57,14 +57,13 @@ public class ReportActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-
                 String type = txtType.getText().toString();
                 String remarks = txtRemarks.getText().toString();
                 String location = txtLocation.getText().toString();
 
                 HashMap<String, String> user = session.getUserDetails();
                 String userid = user.get(SessionManager.KEY_ID);
-                db.addReport(new Report(type, remarks, location, new Date(), userid, false));
+                db.addReport(new Report(type, remarks, location, new java.util.Date(), userid, false));
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }

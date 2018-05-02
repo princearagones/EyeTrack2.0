@@ -30,9 +30,9 @@ public class LocationRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setIcon(R.drawable.launcher);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setIcon(R.drawable.launcher);
 
         btnSubmitLocation = (Button) findViewById(R.id.submitReport);
         final DatabaseHandler db = new DatabaseHandler(this);

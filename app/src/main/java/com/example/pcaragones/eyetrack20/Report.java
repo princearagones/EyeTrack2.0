@@ -1,5 +1,7 @@
 package com.example.pcaragones.eyetrack20;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,7 +13,8 @@ class Report {
     private String _type;
     private String _remarks;
     private String _locationName;
-    private java.util.Date DateSubmitted;
+    private java.sql.Time _time;
+    private java.sql.Date _date;
     private String _userid;
     private boolean isSubmitted;
 
@@ -19,24 +22,33 @@ class Report {
 
     }
 
-    public Report(int _id, String _type, String _remarks, String _locationName, java.util.Date dateSubmitted, String _userid, boolean isSubmitted) {
-        this._id = _id;
-        this._type = _type;
-        this._remarks = _remarks;
-        this._locationName = _locationName;
-        this.DateSubmitted = dateSubmitted;
-        this._userid = _userid;
-        this.isSubmitted = isSubmitted;
-    }
+//    public Report(int _id, String _type, String _remarks, String _locationName, java.util.Date dateSubmitted, String _userid, boolean isSubmitted) {
+//        this._id = _id;
+//        this._type = _type;
+//        this._remarks = _remarks;
+//        this._locationName = _locationName;
+//        this.DateSubmitted = dateSubmitted;
+//        this._userid = _userid;
+//        this.isSubmitted = isSubmitted;
+//    }
 
-    public Report(String _type, String _remarks, String _locationName, java.util.Date dateSubmitted, String _userid, boolean isSubmitted) {
+    public Report(String _type, String _remarks, String _locationName, java.util.Date _utilDate, String _userid, boolean isSubmitted) {
         this._type = _type;
         this._remarks = _remarks;
         this._locationName = _locationName;
-        this.DateSubmitted = dateSubmitted;
+        this._time = new java.sql.Time(_utilDate.getTime());
+        this._date = new java.sql.Date(_utilDate.getTime());
         this._userid = _userid;
         this.isSubmitted = isSubmitted;
     }
+//    public Report(String _type, String _remarks, String _locationName, java.util.Date dateSubmitted, String _userid, boolean isSubmitted) {
+//        this._type = _type;
+//        this._remarks = _remarks;
+//        this._locationName = _locationName;
+//        this.DateSubmitted = dateSubmitted;
+//        this._userid = _userid;
+//        this.isSubmitted = isSubmitted;
+//    }
 
     public int get_id() {
         return _id;
@@ -70,13 +82,21 @@ class Report {
         this._locationName = _locationName;
     }
 
-    public java.util.Date getDateSubmitted() {
-        return this.DateSubmitted;
-    }
+    public Time get_time() { return _time; }
 
-    public void setDateSubmitted(java.util.Date dateSubmitted) {
-        DateSubmitted = dateSubmitted;
-    }
+    public void set_time(Time _time) { this._time = _time; }
+
+    public java.sql.Date get_date() { return _date; }
+
+    public void set_date(java.sql.Date _date) { this._date = _date; }
+
+    //    public java.util.Date getDateSubmitted() {
+//        return this.DateSubmitted;
+//    }
+//
+//    public void setDateSubmitted(java.util.Date dateSubmitted) {
+//        DateSubmitted = dateSubmitted;
+//    }
 
     public String get_userid() {
         return _userid;

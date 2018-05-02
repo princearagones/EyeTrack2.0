@@ -33,8 +33,7 @@ class LocationData {
     }
 
 
-    public LocationData(int _id, java.util.Date _utilDate, double _lat, double _lng, String _userid, boolean isSubmitted, boolean isReport) {
-        this._id = _id;
+    public LocationData(java.util.Date _utilDate, double _lat, double _lng, String _userid, boolean isSubmitted, boolean isReport) {
         this._time = new java.sql.Time(_utilDate.getTime());
         Log.d("showtimeoninit", String.valueOf(_time));
         this._date = new java.sql.Date(_utilDate.getTime());

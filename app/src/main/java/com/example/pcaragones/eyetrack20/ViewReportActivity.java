@@ -64,7 +64,7 @@ public class ViewReportActivity extends AppCompatActivity {
                         Log.d("Submit report:", "Submitting..."+cn.get_id());
 //                        cn.setSubmitted(true);
                         HttpHandler h = new HttpHandler();
-                        String params[] = {"/api/report/add","POST", "type", cn.get_type(), "remarks", cn.get_remarks(), "locationname", cn.get_locationName(), "locationid", "-1", "userid", user.get(SessionManager.KEY_ID)};
+                        String params[] = {"/api/report/add","POST", "type", cn.get_type(), "remarks", cn.get_remarks(), "locationname", cn.get_locationName(),"locationid","-1", "datesubmitted", cn.get_date() + " " + cn.get_time(), "userid", user.get(SessionManager.KEY_ID)};
                         h.execute(params);
 
 //                        db.deleteReport(cn);

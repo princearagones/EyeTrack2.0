@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check if username, password is filled
                 if(username.trim().length() > 0 && password.trim().length() > 0){
-                    Toast.makeText(getApplicationContext(), "Username" + username +" Password" + password, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_LONG).show();
                     String response = null;
 
                     HttpHandler h = new HttpHandler();

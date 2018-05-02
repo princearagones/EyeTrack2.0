@@ -21,7 +21,7 @@ import java.util.List;
 class DatabaseHandler  extends SQLiteOpenHelper {
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     // Database Name
     private static final String DATABASE_NAME = "EyeGuard";
@@ -52,15 +52,14 @@ class DatabaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_DATE + " DATETIME, " + KEY_TIME + "  DATETIME,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DATE + " DATETIME, " + KEY_TIME + "  DATETIME,"
                 + KEY_LAT + " TEXT," + KEY_LNG + " TEXT,"+ KEY_USERID + " TEXT,"
                 + KEY_ISREPORT+ " INT" + " TEXT," + KEY_ISSUBMITTED+ " INT" +")";
         db.execSQL(CREATE_LOCATION_TABLE);
 
         String CREATE_REPORT_TABLE = "CREATE TABLE " + TABLE_REPORT + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TYPE + " TEXT,"
-                + KEY_REMARKS + " TEXT," + KEY_LOCATION_NAME + " TEXT,"
-                + KEY_DATE_SUBMITTED + " NUMERIC,"+ KEY_USERID + " TEXT," + KEY_ISSUBMITTED+ " INT" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TYPE + " TEXT,"+ KEY_DATE + " DATETIME, " + KEY_TIME + "  DATETIME,"+
+                KEY_REMARKS + " TEXT," + KEY_LOCATION_NAME + " TEXT," + " NUMERIC,"+ KEY_USERID + " TEXT," + KEY_ISSUBMITTED+ " INT" + ")";
         db.execSQL(CREATE_REPORT_TABLE);
     }
 
@@ -96,7 +95,8 @@ class DatabaseHandler  extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_TYPE, report.get_type());
-        values.put(KEY_DATE_SUBMITTED, report.getDateSubmitted().toString()); // Location time
+        values.put(KEY_TIME, report.get_time().toString()); // Location time
+        values.put(KEY_DATE, report.get_date().toString());
         values.put(KEY_REMARKS, report.get_remarks()); // location lat
         values.put(KEY_LOCATION_NAME, report.get_locationName());
         values.put(KEY_USERID, report.get_userid());
@@ -149,10 +149,10 @@ class DatabaseHandler  extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-
-        Report report = new Report(Integer.parseInt(cursor.getString(0)),
-                (cursor.getString(1)), (cursor.getString(2)), (cursor.getString(3)),
-                new java.util.Date(cursor.getString(4)), (cursor.getString(5)),Boolean.parseBoolean(cursor.getString(6)));
+        Report report = null;
+//        Report report = new Report(Integer.parseInt(cursor.getString(0)),
+//                (cursor.getString(1)), (cursor.getString(2)), (cursor.getString(3)),
+//                new java.util.Date(cursor.getString(4)), (cursor.getString(5)),Boolean.parseBoolean(cursor.getString(6)));
         // return contact
         return report;
     }
@@ -170,12 +170,6 @@ class DatabaseHandler  extends SQLiteOpenHelper {
             do {
                 LocationData location = new LocationData();
                 location.set_id(Integer.parseInt(cursor.getString(0)));
-                Log.d("STRING ID", cursor.getString(0));
-                Log.d("STRING TIME", cursor.getString(1));
-                Log.d("STRING DATE", cursor.getString(2));
-                Log.d("STRING LAT", cursor.getString(3));
-                Log.d("STRING LNG", cursor.getString(4));
-                Log.d("STRING USER", cursor.getString(5));
                 location.set_date(Date.valueOf(cursor.getString(1)));
                 location.set_time(Time.valueOf(cursor.getString(2)));
                 location.set_lat(Double.parseDouble(cursor.getString(3)));
@@ -206,11 +200,12 @@ class DatabaseHandler  extends SQLiteOpenHelper {
                 Report report = new Report();
                 report.set_id(Integer.parseInt(cursor.getString(0)));
                 report.set_type(cursor.getString(1));
-                report.set_remarks(cursor.getString(2));
-                report.set_locationName(cursor.getString(3));
-                report.setDateSubmitted(new java.util.Date(cursor.getString(4)));
-                report.setSubmitted(Boolean.parseBoolean(cursor.getString(5)));
+                report.set_date(Date.valueOf(cursor.getString(2)));
+                report.set_time(Time.valueOf(cursor.getString(3)));
+                report.set_remarks(cursor.getString(4));
+                report.set_locationName(cursor.getString(5));
                 report.set_userid(cursor.getString(6));
+                report.setSubmitted(Boolean.parseBoolean(cursor.getString(7)));
                 // Adding contact to list
                 reportList.add(report);
             } while (cursor.moveToNext());
